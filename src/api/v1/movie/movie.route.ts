@@ -6,13 +6,17 @@ import {
   editMovie,
 } from "./movie.controller";
 import { validate } from "../../../middleware/validator.middleware";
-import { CreateMovieReqSchema, GetMoviesReqSchema } from "./movie.schema";
+import {
+  CreateMovieReqSchema,
+  GetMoviesReqSchema,
+  UpdateMovieReqSchema,
+} from "./movie.schema";
 
 const router = express.Router();
 
 router.post("/add", validate(CreateMovieReqSchema), addMovie);
 
-router.patch("/:id/", editMovie);
+router.patch("/:id/", validate(UpdateMovieReqSchema), editMovie);
 
 router.get("/list", validate(GetMoviesReqSchema), getMovies);
 

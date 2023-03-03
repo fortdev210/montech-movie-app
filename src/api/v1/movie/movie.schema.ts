@@ -1,4 +1,4 @@
-import { z, ZodString, ZodNumber } from "zod";
+import { z } from "zod";
 
 export const CreateMoviePayloadSchema = z.object({
   title: z.string(),
@@ -99,6 +99,13 @@ export const GetMoviesReqSchema = z.object({
         "other",
       ])
       .optional(),
+  }),
+});
+
+export const UpdateMovieReqSchema = z.object({
+  body: UpdateMoviePayloadSchema,
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });
 

@@ -79,7 +79,7 @@ export const removeMovie = async (
     await deleteMovie(id);
 
     res.status(StatusCodes.OK).json({
-      message: "Removed movie",
+      message: "Movie deleted",
     });
   } catch (error) {
     next(error);
