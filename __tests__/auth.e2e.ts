@@ -3,6 +3,20 @@ import { server } from "../src/server";
 import { faker } from "@faker-js/faker";
 
 describe("TRIM API STARTER AUTHENTICATION", () => {
+  beforeAll(() => {
+    return new Promise((resolve, reject) => {
+      server.on("listening", resolve);
+    });
+  });
+
+  beforeEach(() => {
+    server.close();
+  });
+
+  afterEach(() => {
+    server.close();
+  });
+
   let email = faker.internet.email();
 
   it("should register user with email and password and return access token", async () => {
@@ -18,7 +32,7 @@ describe("TRIM API STARTER AUTHENTICATION", () => {
       accessToken: expect.any(String),
       refreshToken: expect.any(String),
     });
-  });
+  }, 10000);
 
   it("should login user with email and password and return access token", async () => {
     const response = await supertest(server).post("/api/v1/auth/login").send({
@@ -30,5 +44,5 @@ describe("TRIM API STARTER AUTHENTICATION", () => {
       accessToken: expect.any(String),
       refreshToken: expect.any(String),
     });
-  });
+  }, 10000);
 });

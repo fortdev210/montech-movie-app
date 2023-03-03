@@ -8,7 +8,7 @@ import authRouter from "./api/v1/auth/auth.route";
 import userRouter from "./api/v1/user/user.route";
 import logger from "./services/logger";
 import validateEnv from "./utils/validate-env";
-
+import movieRouter from "./api/v1/movie/movie.route";
 import swaggerDoc from "./swagger.json";
 import { errorMiddleware } from "./middleware/error.middleware";
 
@@ -33,6 +33,7 @@ app.get("/api/v1/healthcheck", async (req: Request, res: Response) => {
 // add router here
 app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/movie", movieRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(errorMiddleware);

@@ -43,3 +43,39 @@ model RefreshToken {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Movie {
+  id           String   @id @unique @default(uuid())
+  title        String
+  release_year Int
+  director     String?
+  genre        Genre
+  plot         String
+  runtime      Int
+  rating       Int
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("movies")
+}
+
+enum Genre {
+  action
+  adventure
+  animation
+  comedy
+  crime
+  documentary
+  drama
+  family
+  fantasy
+  horror
+  musical
+  mystery
+  romance
+  science_fiction
+  thriller
+  war
+  western
+  other
+}
