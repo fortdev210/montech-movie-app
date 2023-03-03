@@ -2,7 +2,8 @@ import { cleanEnv, port, str, email } from "envalid";
 
 const validateEnv = () => {
   cleanEnv(process.env, {
-    POSTGRES_DB: str(),
+    DATABASE_URL: str(),
+    SHADOW_DATABASE_URL: str(),
   });
 };
 
