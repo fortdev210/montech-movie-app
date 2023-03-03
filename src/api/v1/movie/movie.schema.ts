@@ -66,17 +66,19 @@ export const CreateMovieReqSchema = z.object({
 
 export const GetMoviesReqSchema = z.object({
   query: z.object({
-    page: z.number().optional(),
+    page: z.number().or(z.string().regex(/\d+/).transform(Number)).optional(),
     rating: z
       .number()
       .or(z.string().regex(/\d+/).transform(Number))
       .refine((n) => n >= 0)
-      .refine((n) => n <= 5),
+      .refine((n) => n <= 5)
+      .optional(),
     release_year: z
       .number()
       .or(z.string().regex(/\d+/).transform(Number))
       .refine((n) => n >= 1900)
-      .refine((n) => n <= 2023),
+      .refine((n) => n <= 2023)
+      .optional(),
     genre: z
       .enum([
         "action",
