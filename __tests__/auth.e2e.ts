@@ -3,20 +3,6 @@ import { server } from "../src/server";
 import { faker } from "@faker-js/faker";
 
 describe("TRIM API STARTER AUTHENTICATION", () => {
-  beforeAll(() => {
-    return new Promise((resolve, reject) => {
-      server.on("listening", resolve);
-    });
-  });
-
-  beforeEach(() => {
-    server.close();
-  });
-
-  afterEach(() => {
-    server.close();
-  });
-
   let email = faker.internet.email();
 
   it("should register user with email and password and return access token", async () => {
