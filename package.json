@@ -1,7 +1,7 @@
 {
   "name": "api-starter",
   "version": "1.0.0",
-  "description": "trim-nodejs-api-starter",
+  "description": "montech-movie-api",
   "main": "server.ts",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,8 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/server.js\"",
     "debug": "concurrently \"npx tsc --watch\" \"nodemon --inspect -q dist/server.js\"",
     "db:generate": "npx prisma generate",
-    "db:migrate": "npx prisma migrate dev --name=$MIGRATION_NAME"
+    "db:migrate": "npx prisma migrate dev --name=$MIGRATION_NAME",
+    "db:seed": "ts-node ./prisma/seeds/seed.ts"
   },
   "repository": {
     "type": "git",

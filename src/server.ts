@@ -33,7 +33,7 @@ app.get("/api/v1/healthcheck", async (req: Request, res: Response) => {
 // add router here
 app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/movie", movieRouter);
+app.use("/api/v1/movies", movieRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(errorMiddleware);

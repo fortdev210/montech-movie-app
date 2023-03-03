@@ -23,17 +23,17 @@ export const createMovie = async (payload: TNewMovie) => {
  * @param page
  */
 export const retrieveMovies = async (
-  page: number,
+  page?: number,
   genre?: Genre,
   rating?: number,
   release_year?: number
 ) => {
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 5;
   const skip = (Number(page) - 1) * Number(PAGE_SIZE);
 
   const movies = await prisma.movie.findMany({
-    skip,
-    take: Number(PAGE_SIZE),
+    skip: page ? skip : 0,
+    take: page ? Number(PAGE_SIZE) : undefined,
     where: {
       genre: genre ? genre : undefined,
       rating: rating ? rating : undefined,
@@ -53,8 +53,6 @@ export const retrieveMovies = async (
     },
   };
 };
-
-export const retrieveMoviesByGenre = async;
 
 /**
  * Update a movie in the database

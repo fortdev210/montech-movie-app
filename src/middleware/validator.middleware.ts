@@ -15,7 +15,10 @@ export const validate =
       let err = error;
 
       if (err instanceof z.ZodError) {
-        err = err.issues.map((e) => ({ path: e.path[0], message: e.message }));
+        err = err.issues.map((e) => ({
+          path: e.path[0] + "/" + (e.path[1] ? e.path[1] : ""),
+          message: e.message,
+        }));
       }
       return res.status(400).json({
         status: "failed",
