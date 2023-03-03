@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
-import authRouter from "./api/v1/auth/auth.route";
-import userRouter from "./api/v1/user/user.route";
 import logger from "./services/logger";
 import validateEnv from "./utils/validate-env";
 import movieRouter from "./api/v1/movie/movie.route";
@@ -30,9 +28,6 @@ app.get("/api/v1/healthcheck", async (req: Request, res: Response) => {
   });
 });
 
-// add router here
-app.use("/api/v1/auth/", authRouter);
-app.use("/api/v1/user", userRouter);
 app.use("/api/v1/movies", movieRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));

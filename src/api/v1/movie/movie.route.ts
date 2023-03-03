@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/add", validate(CreateMovieReqSchema), addMovie);
 
-router.patch("/:id", editMovie);
+router.patch("/:id/", editMovie);
 
 router.get("/list", getMovies);
 
