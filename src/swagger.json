@@ -9,7 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "epicure-api.herokuapp.com",
+  "host": "https://epicure-api.herokuapp.com",
   "basePath": "/api/v1/",
   "schemes": ["http"],
   "consumes": ["application/json"],
