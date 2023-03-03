@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, ZodString, ZodNumber } from "zod";
 
 export const CreateMoviePayloadSchema = z.object({
   title: z.string(),
@@ -62,6 +62,44 @@ export const UpdateMoviePayloadSchema = z.object({
 
 export const CreateMovieReqSchema = z.object({
   body: CreateMoviePayloadSchema,
+});
+
+export const GetMoviesReqSchema = z.object({
+  query: z.object({
+    page: z.number().optional(),
+    rating: z
+      .number()
+      .or(z.string().regex(/\d+/).transform(Number))
+      .refine((n) => n >= 0)
+      .refine((n) => n <= 5),
+    release_year: z
+      .number()
+      .or(z.string().regex(/\d+/).transform(Number))
+      .refine((n) => n >= 1900)
+      .refine((n) => n <= 2023),
+    genre: z
+      .enum([
+        "action",
+        "adventure",
+        "animation",
+        "comedy",
+        "crime",
+        "documentary",
+        "drama",
+        "family",
+        "fantasy",
+        "horror",
+        "musical",
+        "mystery",
+        "romance",
+        "science_fiction",
+        "thriller",
+        "war",
+        "western",
+        "other",
+      ])
+      .optional(),
+  }),
 });
 
 export type TNewMovie = z.infer<typeof CreateMoviePayloadSchema>;

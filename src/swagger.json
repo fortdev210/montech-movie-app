@@ -11,12 +11,6 @@
   },
   "host": "localhost:3001",
   "basePath": "/api/v1/",
-  "tags": [
-    {
-      "name": "Users",
-      "description": "API for users in the system"
-    }
-  ],
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
@@ -34,14 +28,244 @@
                 "statue": {
                   "type": "string",
                   "example": "success"
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Welcome to TRIM API starter"
                 }
               }
             }
           }
+        }
+      }
+    },
+    "/movies/add": {
+      "post": {
+        "tags": ["Healthcheck"],
+        "summary": "Create a new movie",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Movie object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "genre": {
+                  "type": "string",
+                  "enum": [
+                    "action",
+                    "adventure",
+                    "animation",
+                    "comedy",
+                    "crime",
+                    "documentary",
+                    "drama",
+                    "family",
+                    "fantasy",
+                    "horror",
+                    "musical",
+                    "mystery",
+                    "romance",
+                    "science_fiction",
+                    "thriller",
+                    "war",
+                    "western",
+                    "other"
+                  ]
+                },
+                "director": {
+                  "type": "string"
+                },
+                "release_year": {
+                  "type": "integer",
+                  "minimum": 1900,
+                  "maximum": 2023
+                },
+                "runtime": {
+                  "type": "integer"
+                },
+                "rating": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "release_year": {
+                      "type": "integer"
+                    },
+                    "runtime": {
+                      "type": "integer"
+                    },
+                    "rating": {
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/list": {
+      "get": {
+        "tags": ["Healthcheck"],
+        "summary": "Create a new movie",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "Genre type",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "action",
+              "adventure",
+              "animation",
+              "comedy",
+              "crime",
+              "documentary",
+              "drama",
+              "family",
+              "fantasy",
+              "horror",
+              "musical",
+              "mystery",
+              "romance",
+              "science_fiction",
+              "thriller",
+              "war",
+              "western",
+              "other"
+            ]
+          },
+          {
+            "name": "release_year",
+            "in": "query",
+            "description": "Release year",
+            "required": false,
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2023
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "description": "Rating",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "genre": {
+                        "type": "string"
+                      },
+                      "director": {
+                        "type": "string"
+                      },
+                      "release_year": {
+                        "type": "integer"
+                      },
+                      "runtime": {
+                        "type": "integer"
+                      },
+                      "rating": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "pages": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {}
         }
       }
     }

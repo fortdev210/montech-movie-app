@@ -6,7 +6,7 @@ import {
   editMovie,
 } from "./movie.controller";
 import { validate } from "../../../middleware/validator.middleware";
-import { CreateMovieReqSchema } from "./movie.schema";
+import { CreateMovieReqSchema, GetMoviesReqSchema } from "./movie.schema";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post("/add", validate(CreateMovieReqSchema), addMovie);
 
 router.patch("/:id/", editMovie);
 
-router.get("/list", getMovies);
+router.get("/list", validate(GetMoviesReqSchema), getMovies);
 
 router.delete("/:id", removeMovie);
 

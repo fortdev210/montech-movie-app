@@ -21,7 +21,7 @@ export const validate =
         }));
       }
       return res.status(400).json({
-        status: "failed",
+        description: "Invalid request",
         error: err,
       });
     }

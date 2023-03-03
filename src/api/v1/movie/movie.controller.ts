@@ -52,14 +52,14 @@ export const getMovies = async (
   try {
     const page = req.query.page as unknown as number;
     const genre = req.query.genre as string;
-    const release_year = req.query.release_year as unknown as number;
-    const rating = req.query.rating as unknown as number;
+    const release_year = req.query.release_year as string;
+    const rating = req.query.rating as string;
 
     const result = await retrieveMovies(
       page,
       genre as Genre,
-      release_year,
-      rating
+      Number(release_year),
+      Number(rating)
     );
 
     res.status(StatusCodes.OK).json(result);

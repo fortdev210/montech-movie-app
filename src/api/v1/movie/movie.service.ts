@@ -25,8 +25,8 @@ export const createMovie = async (payload: TNewMovie) => {
 export const retrieveMovies = async (
   page?: number,
   genre?: Genre,
-  rating?: number,
-  release_year?: number
+  release_year?: number,
+  rating?: number
 ) => {
   const PAGE_SIZE = 5;
   const skip = (Number(page) - 1) * Number(PAGE_SIZE);
