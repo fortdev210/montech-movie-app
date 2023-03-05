@@ -86,10 +86,12 @@ export const handleError = (res: Response, err: Error) => {
   };
   // log the error in error.log
 
-  logger.error({
-    error,
-    description,
-    stack,
-  });
+  logger.error(
+    JSON.stringify({
+      error,
+      description,
+      stack,
+    })
+  );
   res.status(status).json(errRes);
 };
