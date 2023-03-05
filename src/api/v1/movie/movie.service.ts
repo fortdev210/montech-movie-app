@@ -1,4 +1,6 @@
 import { PrismaClient, Genre } from "@prisma/client";
+import { StatusCodes } from "http-status-codes";
+import { BaseException, ErrorCode } from "../../../middleware/error.middleware";
 import { TNewMovie, TUpdateMovie } from "./movie.schema";
 
 const prisma = new PrismaClient();
@@ -58,19 +60,19 @@ export const retrieveMovies = async (
  * @param payload
  */
 export const updateMovie = async (id: string, payload: TUpdateMovie) => {
-  // const movie = await prisma.movie.findUnique({
-  //   where: {
-  //     id: id,
-  //   },
-  // });
+  const movie = await prisma.movie.findUnique({
+    where: {
+      id: id,
+    },
+  });
 
-  // if (!movie) {
-  //   throw new CustomError(
-  //     StatusCodes.BAD_REQUEST,
-  //     ErrorCode.MOVIE_NOT_FOUND,
-  //     "Movie with that id does not exist"
-  //   );
-  // }
+  if (!movie) {
+    throw new BaseException(
+      ErrorCode.DATA_NOT_FOUND,
+      StatusCodes.BAD_REQUEST,
+      "Movie with that id does not exist"
+    );
+  }
 
   const updatedMovie = await prisma.movie.update({
     where: {
@@ -89,19 +91,19 @@ export const updateMovie = async (id: string, payload: TUpdateMovie) => {
  * @param id
  */
 export const deleteMovie = async (id: string) => {
-  // const movie = await prisma.movie.findUnique({
-  //   where: {
-  //     id: id,
-  //   },
-  // });
+  const movie = await prisma.movie.findUnique({
+    where: {
+      id: id,
+    },
+  });
 
-  // if (!movie) {
-  //   throw new CustomError(
-  //     StatusCodes.BAD_REQUEST,
-  //     ErrorCode.MOVIE_NOT_FOUND,
-  //     "Movie with that id does not exist"
-  //   );
-  // }
+  if (!movie) {
+    throw new BaseException(
+      ErrorCode.DATA_NOT_FOUND,
+      StatusCodes.BAD_REQUEST,
+      "Movie with that id does not exist"
+    );
+  }
 
   await prisma.movie.delete({
     where: {
