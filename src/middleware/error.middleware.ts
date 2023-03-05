@@ -8,7 +8,7 @@ export class BaseException implements Error {
   status: number;
   // User readable error code
   name: string;
-  message: string;
+  message: string = "";
   // Detailed error stack
   stack?: string;
 
@@ -47,8 +47,8 @@ export const handleError = (res: Response, err: Error) => {
       ? StatusCodes.BAD_REQUEST
       : status;
   stack =
-    err instanceof Prisma.PrismaClientKnownRequestError
-      ? ((err as Prisma.PrismaClientKnownRequestError).meta.message as string)
+    err instanceof Prisma.PrismaClientKnownRequestError && err.meta?.message
+      ? (err.meta.message as string)
       : stack;
   description =
     err instanceof Prisma.PrismaClientKnownRequestError
