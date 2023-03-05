@@ -2,13 +2,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
-import logger from "./services/logger";
-import validateEnv from "./utils/validate-env";
+
 import movieRouter from "./api/v1/movie/movie.route";
+import { BaseException, handleError } from "./middleware/error.middleware";
+import logger from "./services/logger";
 import swaggerDoc from "./swagger.json";
-import { errorMiddleware } from "./middleware/error.middleware";
+import validateEnv from "./utils/validate-env";
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
@@ -31,7 +33,20 @@ app.get("/api/v1/healthcheck", async (req: Request, res: Response) => {
 app.use("/api/v1/movies", movieRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use(errorMiddleware);
+
+app.use((req: Request, res: Response) => {
+  handleError(res, new BaseException("Bad request", StatusCodes.BAD_REQUEST));
+});
+
+process.on("uncaughtException", (err) => {
+  logger.error({
+    name: err.name,
+    message: err.message,
+    stack: err.stack,
+  });
+  process.exit(1);
+});
+
 export const server = app.listen(port, () => {
   logger.info(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
