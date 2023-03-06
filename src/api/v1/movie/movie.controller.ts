@@ -1,13 +1,9 @@
 import { Genre } from "@prisma/client";
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+
 import { handleError } from "../../../middleware/error.middleware";
-import {
-  createMovie,
-  retrieveMovies,
-  deleteMovie,
-  updateMovie,
-} from "./movie.service";
+import { createMovie, deleteMovie, retrieveMovies, updateMovie } from "./movie.service";
 
 export const addMovie = async (
   req: Request,
@@ -21,7 +17,7 @@ export const addMovie = async (
     res.status(StatusCodes.CREATED).json({
       data: result,
     });
-    next();
+   
   } catch (error: any) {
     handleError(res, error);
   }
@@ -41,7 +37,7 @@ export const editMovie = async (
     res.status(StatusCodes.OK).json({
       data: result,
     });
-    next();
+   
   } catch (error: any) {
     handleError(res, error);
   }
@@ -66,7 +62,7 @@ export const getMovies = async (
     );
 
     res.status(StatusCodes.OK).json(result);
-    next();
+   
   } catch (error: any) {
     handleError(res, error);
   }
@@ -85,7 +81,7 @@ export const removeMovie = async (
     res.status(StatusCodes.OK).json({
       message: "Movie deleted",
     });
-    next();
+   
   } catch (error: any) {
     handleError(res, error);
   }
